@@ -1,5 +1,6 @@
 // tailwind.config.js
 const { tailwindConfig } = require('@storefront-ui/react/tailwind-config');
+import sfTypography from '@storefront-ui/typography';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -14,5 +15,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [sfTypography],
 };

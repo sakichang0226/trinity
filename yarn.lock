@@ -572,6 +572,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storefront-ui/typography@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "@storefront-ui/typography@npm:2.6.1"
+  peerDependencies:
+    tailwindcss: ">=3.0.0 || >= 3.0.0-alpha.1"
+  checksum: 10c0/3bb337f787d18b26104bd31a6259406ca2312ecdaa73cd9db1d18e387c44a357ec4381a72488021a25aff7338a2c348ec1a235882d50c6cbc57253e4cb0ffe31
+  languageName: node
+  linkType: hard
+
 "@swc/counter@npm:0.1.3":
   version: 0.1.3
   resolution: "@swc/counter@npm:0.1.3"
@@ -4540,6 +4549,7 @@ __metadata:
   resolution: "trinity@workspace:."
   dependencies:
     "@storefront-ui/react": "npm:^2.7.0"
+    "@storefront-ui/typography": "npm:^2.6.1"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
