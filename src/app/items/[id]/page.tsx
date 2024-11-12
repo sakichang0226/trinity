@@ -66,7 +66,7 @@ const Items = () => {
                             </div>
                             <div className="">
                                 <ProductName itemName={itemInfo.name}></ProductName>
-                                <div className="my-5"><Price value={7990}></Price></div>
+                                <div className="my-5"><Price value={itemInfo.price}></Price></div>
                                 <div className="flex md:flex-wrap gap-5">
                                     <QuantitySelector
                                         max={itemInfo.stock}
