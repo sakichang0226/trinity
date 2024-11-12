@@ -20,4 +20,3 @@ const CategoryTree = (props: Categories) => {
     );
 }
 export default CategoryTree;
-

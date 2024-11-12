@@ -8,6 +8,12 @@ const QuantitySelector = (props: {
     min: number;
     setValue: Dispatch<SetStateAction<number>>;
 }) => {
+
+    const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(e.target.value) > 10 ? props.max : Number(e.target.value);
+        props.setValue(value);
+    }
+
     return (
         <div className="inline-flex flex-col items-center">
           <div className="flex border border-neutral-300">
@@ -28,7 +34,7 @@ const QuantitySelector = (props: {
               min={props.min}
               max={props.max}
               value={props.value}
-              onChange={(e) => props.setValue(e.target.value)}
+              onChange={onChangeValue}
             />
             <SfButton
               variant="tertiary"
