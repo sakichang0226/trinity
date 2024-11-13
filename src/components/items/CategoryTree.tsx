@@ -3,7 +3,7 @@ import BreadCrumb from '../common/BreadCrumb';
 
 const CategoryTree = (props: Categories) => {
 
-    const categoryTree = [...props.parentCategories].reverse()
+    const categoryTree = [...props?.parentCategories].reverse()
 
     return (
         <nav className="flex text-sm font-normal font-body">

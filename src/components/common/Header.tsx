@@ -1,4 +1,3 @@
-"use client"
 import Logo from './Logo';
 import NavigationBar from './NavigationBar';
 import Search from './Search';

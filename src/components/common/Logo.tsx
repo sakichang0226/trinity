@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import nextsvg from "@/src/public/next.svg";
 
 const Logo = () => {
     return (
@@ -9,7 +10,7 @@ const Logo = () => {
                 className="inline-block mr-4 focus-visible:outline focus-visible:outline-offset focus-visible:rounded-sm shrink-0"
             >
                 <Image 
-                    src = { "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/vsf_logo.svg"}
+                    src = { nextsvg }
                     width = {175}
                     height = {176}
                     alt= {"Sf Logo"}
