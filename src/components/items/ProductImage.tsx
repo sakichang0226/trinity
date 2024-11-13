@@ -1,4 +1,5 @@
 import Image from "next/image"
+import noImage from "../../public/no_image.png"
 
 const ProductImage = (props : { 
     "imageUrl": string 
@@ -6,10 +7,10 @@ const ProductImage = (props : {
 } ) => {
     return (
         <>
-            <img
-                src={props.imageUrl}
+            <Image
+                src={props.imageUrl ? props.imageUrl : noImage}
                 alt={props.alt}
-                className="block object-cover h-auto rounded-md aspect-square"
+                className="block object-cover h-auto rounded-md aspect-square my-5"
                 width="300"
                 height="300"
             />
