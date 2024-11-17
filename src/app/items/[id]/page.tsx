@@ -5,6 +5,7 @@ import {
     ShopName,
     ProductDetailCard
 } from "@/src/components/items/index"
+import ItemsApi from "@/src/feature/items/ItemsApi";
 
 const Items = async ({ params }) => {
     const { id } = await params;
@@ -30,9 +31,9 @@ const Items = async ({ params }) => {
                         {   
                             categories && 
                                 <CategoryTree
-                                    id={categories.id}
+                                    category_id={categories.category_id}
                                     name={categories.name}
-                                    parentCategories={ categories.parentCategories }
+                                    parent_categories={ categories.parent_categories }
                                 ></CategoryTree>
                         }
                     </div>
