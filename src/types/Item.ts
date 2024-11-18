@@ -7,7 +7,7 @@ interface Item {
     imageUrl: string;
     description: string;
     isStopped: boolean;
-    purchase_num: number;
+    purchaseNum: number;
     stock: number;
 }
 export default Item;

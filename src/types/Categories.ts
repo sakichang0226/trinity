@@ -1,8 +1,8 @@
 import Category from "./Category";
 
 interface Categories {
-    category_id: number;
+    categoryId: number;
     name: string;
-    parent_categories: Category[]
+    parentCategories: Category[]
 }
 export default Categories;

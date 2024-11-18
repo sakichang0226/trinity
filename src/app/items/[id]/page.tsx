@@ -1,27 +1,25 @@
-import HttpClient from "@/src/util/HttpClient";
-import { DOMAIN } from "@/src/const/ClientValues";
 import { 
     CategoryTree,
     ShopName,
     ProductDetailCard
 } from "@/src/components/items/index"
-import ItemsApi from "@/src/feature/items/ItemsApi";
+import ItemsApi from "@/src/feature/api/items/ItemsApi";
+import ShopsApi from "@/src/feature/api/items/ShopsApi";
+import CategoriesApi from "@/src/feature/api/items/CategoriesApi";
+import Item from "@/src/types/Item";
 
 const Items = async ({ params }) => {
     const { id } = await params;
-    const itemInfo = (await HttpClient.get("GET", `${DOMAIN}/api/v1/items/${id}`)).data;
-    const shopId = itemInfo.shop_id;
-    const categoryId = itemInfo.category_id;
-    
+    const itemInfo = await ItemsApi.fetchItemInfo(id);
     let shopInfo;
-    let categories; 
+    let categories;
 
-    try {
-        shopInfo = (await HttpClient.get("GET", `${DOMAIN}/api/v1/shops/${shopId}`)).data;
-        categories = (await HttpClient.get("GET", `${DOMAIN}/api/v1/categories/${categoryId}`)).data; 
-    } catch(error) {
-
-    }
+    if (typeof itemInfo !== "undefined") {
+        const shopId = itemInfo?.shopId;
+        const categoryId = itemInfo?.categoryId;
+        shopInfo = await ShopsApi.fetchShopInfo(shopId);
+        categories = await CategoriesApi.fetchCategoryInfo(categoryId);  
+    } 
 
     return (
         <>
@@ -31,9 +29,9 @@ const Items = async ({ params }) => {
                         {   
                             categories && 
                                 <CategoryTree
-                                    category_id={categories.category_id}
+                                    categoryId={categories.categoryId}
                                     name={categories.name}
-                                    parent_categories={ categories.parent_categories }
+                                    parentCategories={ categories.parentCategories }
                                 ></CategoryTree>
                         }
                     </div>
@@ -43,7 +41,7 @@ const Items = async ({ params }) => {
                         }
                     </div>
                     <div className="md:flex mx-10">
-                        <ProductDetailCard itemInfo={itemInfo}></ProductDetailCard>
+                        {itemInfo && <ProductDetailCard itemInfo={itemInfo}></ProductDetailCard>}
                     </div>
                 </div>
             </div>
