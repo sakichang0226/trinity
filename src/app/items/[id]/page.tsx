@@ -3,23 +3,19 @@ import {
     ShopName,
     ProductDetailCard
 } from "@/src/components/items/index"
-import ItemsApi from "@/src/feature/api/items/ItemsApi";
-import ShopsApi from "@/src/feature/api/items/ShopsApi";
-import CategoriesApi from "@/src/feature/api/items/CategoriesApi";
-import Item from "@/src/types/Item";
+import ItemService from "@/src/feature/service/ItemService";
 
-const Items = async ({ params }) => {
+type ParamsType = {
+    id: number
+}
+
+interface ItemsProps {
+    params: ParamsType
+}
+
+const Items: React.FC<ItemsProps> = async ({ params }) => {
     const { id } = await params;
-    const itemInfo = await ItemsApi.fetchItemInfo(id);
-    let shopInfo;
-    let categories;
-
-    if (typeof itemInfo !== "undefined") {
-        const shopId = itemInfo?.shopId;
-        const categoryId = itemInfo?.categoryId;
-        shopInfo = await ShopsApi.fetchShopInfo(shopId);
-        categories = await CategoriesApi.fetchCategoryInfo(categoryId);  
-    } 
+    const { itemInfo, shopInfo, categories } = await ItemService(id);
 
     return (
         <>
@@ -41,7 +37,7 @@ const Items = async ({ params }) => {
                         }
                     </div>
                     <div className="md:flex mx-10">
-                        {itemInfo && <ProductDetailCard itemInfo={itemInfo}></ProductDetailCard>}
+                        { itemInfo && <ProductDetailCard itemInfo={itemInfo}></ProductDetailCard> }
                     </div>
                 </div>
             </div>

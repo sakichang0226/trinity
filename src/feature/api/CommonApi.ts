@@ -1,8 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-import { AxiosResponseType, CommonError } from "../../types/api/ApiResults";
 import { AxiosResponse } from "axios";
 
-export abstract class CommonApi<RQ, RS extends AxiosResponseType> {
+export abstract class CommonApi<RQ, RS> {
 
     config = {
         baseURL : "http://localhost:8080",
@@ -27,10 +26,6 @@ export abstract class CommonApi<RQ, RS extends AxiosResponseType> {
 
     async get(endpoint: string, params?: AxiosRequestConfig<RS>): Promise<AxiosResponse<RS>> {
         const response = await this.client.get<RS>(endpoint, params);
-
-        if (response.status != 200) {
-            response.status
-        }
 
         return response
     }

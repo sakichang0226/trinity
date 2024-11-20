@@ -1,13 +1,12 @@
 import { DOMAIN } from "@/src/const/ClientValues";
 import { CommonApi } from "@/src/feature/api/CommonApi";
+import { CommonError } from "@/src/types/api/ApiResults";
 import ItemResponse from "@/src/types/api/ItemResponse";
 import Item from "@/src/types/Item";
-import { notFound } from "next/navigation";
-
 
 class ItemsApi extends CommonApi<unknown, ItemResponse> {
 
-    async fetchItemInfo(id: number) {
+    async fetchItemInfo(id: number): Promise<Item | CommonError> {
 
         try {
             const response = await this.get(`${DOMAIN}/api/v1/items/${id}`);
@@ -24,14 +23,18 @@ class ItemsApi extends CommonApi<unknown, ItemResponse> {
                 isStopped: body.is_stopped,
                 purchaseNum: body.purchase_num,
                 stock: body.stock
-            }
+            } as Item
     
             return itemInfo
 
         } catch(error: any) {
-            if (error.status == 404) {
-                notFound();
+
+            if (error.data) {
+                const data = error.data
+                return { error_code: data.error_code, message: data.message } as CommonError
             }
+
+            return { } as CommonError
         }
 
     }

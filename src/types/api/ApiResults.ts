@@ -1,7 +1,4 @@
-export interface AxiosResponseType {
-};
-
-export interface CommonError extends AxiosResponseType {
+export interface CommonError {
     error_code: string;
     message: string;
 }

@@ -1,6 +1,4 @@
-import { AxiosResponseType } from "./ApiResults";
-
-interface ItemResponse extends AxiosResponseType {
+interface ItemResponse {
     seq_exhibit_id: number;
     name: string;
     shop_id: number;
