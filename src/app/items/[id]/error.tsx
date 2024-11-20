@@ -11,9 +11,9 @@ const ErrorPage = ({ error }: { error: Error }) => {
             <Image
               src={errorImg}
               alt="error"
-              className="my-5"
+              className="my-5 mx-auto"
             ></Image>
-            <h2>{error.message}</h2>
+            <h2 className="mx-5">{error.message}</h2>
           </div>
       </div>
   )

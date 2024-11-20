@@ -1,4 +1,5 @@
 import { DOMAIN } from "@/src/const/ClientValues";
+import { API_ERROR999 } from "@/src/const/ErrorValues";
 import { CommonApi } from "@/src/feature/api/CommonApi";
 import { CommonError } from "@/src/types/api/ApiResults";
 import ItemResponse from "@/src/types/api/ItemResponse";
@@ -34,7 +35,7 @@ class ItemsApi extends CommonApi<unknown, ItemResponse> {
                 return { error_code: data.error_code, message: data.message } as CommonError
             }
 
-            return { } as CommonError
+            return { error_code: API_ERROR999, message: "" } as CommonError
         }
 
     }

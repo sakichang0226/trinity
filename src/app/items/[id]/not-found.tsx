@@ -10,7 +10,7 @@ const NotFound = () => {
             alt="error"
             className="my-5"
           ></Image>
-          <h2>ページが見つかりませんでした。</h2>
+          <h2>商品が見つかりませんでした。</h2>
         </div>
     </div>
   )
