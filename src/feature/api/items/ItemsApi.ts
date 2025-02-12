@@ -4,8 +4,9 @@ import { CommonApi } from "@/src/feature/api/CommonApi";
 import { CommonError } from "@/src/types/api/ApiResults";
 import ItemResponse from "@/src/types/api/ItemResponse";
 import Item from "@/src/types/Item";
+import { AxiosError } from "axios";
 
-class ItemsApi extends CommonApi<unknown, ItemResponse> {
+class ItemsApi extends CommonApi<ItemResponse> {
 
     async fetchItemInfo(id: number): Promise<Item | CommonError> {
 
@@ -28,10 +29,9 @@ class ItemsApi extends CommonApi<unknown, ItemResponse> {
     
             return itemInfo
 
-        } catch(error: any) {
-
-            if (error.data) {
-                const data = error.data
+        } catch(error: unknown) {
+            if (error instanceof AxiosError && error.response?.data) {
+                const data = error.response.data
                 return { error_code: data.error_code, message: data.message } as CommonError
             }
 
@@ -39,6 +39,6 @@ class ItemsApi extends CommonApi<unknown, ItemResponse> {
         }
 
     }
-
 }
-export default new ItemsApi();
+const itemsApiClient = new ItemsApi();
+export default itemsApiClient

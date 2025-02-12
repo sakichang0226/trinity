@@ -10,7 +10,7 @@ type ParamsType = {
 }
 
 interface ItemsProps {
-    params: ParamsType
+    params: Promise<ParamsType>
 }
 
 const Items: React.FC<ItemsProps> = async ({ params }) => {

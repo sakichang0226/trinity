@@ -3,7 +3,7 @@ import { DOMAIN } from "@/src/const/ClientValues";
 import Categories from "@/src/types/Categories";
 import CategoriesResponse from "@/src/types/api/CategoriesResponse";
 
-class CategoriesApi extends CommonApi<unknown, CategoriesResponse> {
+class CategoriesApi extends CommonApi<CategoriesResponse> {
 
     async fetchCategoryInfo(id: number) {
 
@@ -19,11 +19,15 @@ class CategoriesApi extends CommonApi<unknown, CategoriesResponse> {
     
             return categoryInfo
 
-        } catch(error: any) {
+        } catch(error) {
+            if (error instanceof Error) {
+                console.warn(error);
+            }
             return 
         }
 
     }
 
 }
-export default new CategoriesApi();
+const categoriesApiClient = new CategoriesApi();
+export default categoriesApiClient

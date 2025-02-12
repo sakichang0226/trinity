@@ -3,7 +3,7 @@ import ShopResponse from "@/src/types/api/ShopResponse";
 import { DOMAIN } from "@/src/const/ClientValues";
 import Shop from "@/src/types/Shop";
 
-class ShopsApi extends CommonApi<unknown, ShopResponse> {
+class ShopsApi extends CommonApi<ShopResponse> {
 
     async fetchShopInfo(id: number) {
 
@@ -18,11 +18,15 @@ class ShopsApi extends CommonApi<unknown, ShopResponse> {
     
             return shopInfo
 
-        } catch(error: any) {
+        } catch(error) {
+            if (error instanceof Error) {
+                console.warn(error);
+            }
             return 
         }
 
     }
 
 }
-export default new ShopsApi();
+const shopsApiClient = new ShopsApi();
+export default shopsApiClient

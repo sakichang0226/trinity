@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { AxiosResponse } from "axios";
 
-export abstract class CommonApi<RQ, RS> {
+export abstract class CommonApi<RS> {
 
     config = {
         baseURL : "http://localhost:8080",
