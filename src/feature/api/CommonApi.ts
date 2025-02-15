@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 export abstract class CommonApi<RS> {
 
     config = {
-        baseURL : process.env.BASE_URL || "http://localhost:8080",
+        baseURL : process.env.BASE_URL,
         timeout: 30000,
         cors: true
     }
@@ -12,6 +12,7 @@ export abstract class CommonApi<RS> {
     client: AxiosInstance
 
     constructor() {
+        console.log(process.env)
         this.client = axios.create(this.config);
         this.client.interceptors.response.use(
             (response) => response,
