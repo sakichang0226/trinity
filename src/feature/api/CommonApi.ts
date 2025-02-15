@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 export abstract class CommonApi<RS> {
 
     config = {
-        baseURL : "http://localhost:8080",
+        baseURL : process.env.BASE_URL || "http://localhost:8080",
         timeout: 30000,
         cors: true
     }
