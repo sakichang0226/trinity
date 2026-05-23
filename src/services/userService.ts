@@ -12,8 +12,10 @@ export interface UserInfo {
   email: string
 }
 
-export async function fetchMe(): Promise<UserInfo> {
-  const data = await apiClient.get<MeResponse>('/api/v1/me')
+export async function fetchMe(): Promise<UserInfo | null> {
+  const res = await apiClient.getRaw<MeResponse>('/api/v1/me')
+  if (res.status === 204) return null
+  const data = res.data
   return {
     userId: data.user_id,
     userName: data.user_name,
