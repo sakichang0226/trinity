@@ -1,6 +1,19 @@
 import { apiClient } from '@/services/apiClient'
 import type { ApiResult } from '@/types/api'
 
+interface LoginRequest {
+  email: string
+  password: string
+}
+
+interface LoginResponse {
+  user_name: string
+}
+
+export async function login(data: LoginRequest): Promise<ApiResult<LoginResponse>> {
+  return apiClient.post<LoginResponse>('/api/v1/login', data)
+}
+
 interface MeResponse {
   user_id: number
   user_name: string
