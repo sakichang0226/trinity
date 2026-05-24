@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Image } from '@/components/common/Image'
 import { NewBadge } from '@/components/common/NewBadge'
 import { RatingStars } from '@/components/common/RatingStars'
+import { PriceLabel } from '@/components/common/PriceLabel'
 import type { Product } from '@/types/product'
 
 export function ProductCard({ product, isNew }: { product: Product; isNew?: boolean }) {
@@ -16,7 +17,7 @@ export function ProductCard({ product, isNew }: { product: Product; isNew?: bool
       </div>
       <div className="p-4">
         <p className="text-sm text-gray-800 font-medium">{product.product_name}</p>
-        <p className="text-green-700 font-bold mt-1">¥{product.price.toLocaleString()}</p>
+        <PriceLabel price={product.price} color="primary" />
         {!isNew && <RatingStars rating={product.rating} scoreLabel={product.review_count} />}
       </div>
     </Link>
