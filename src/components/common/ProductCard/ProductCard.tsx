@@ -17,7 +17,7 @@ export function ProductCard({ product, isNew }: { product: Product; isNew?: bool
       <div className="p-4">
         <p className="text-sm text-gray-800 font-medium">{product.product_name}</p>
         <p className="text-green-700 font-bold mt-1">¥{product.price.toLocaleString()}</p>
-        {!isNew && <RatingStars rating={product.rating} reviewCount={product.review_count} />}
+        {!isNew && <RatingStars rating={product.rating} scoreLabel={product.review_count} />}
       </div>
     </Link>
   )
