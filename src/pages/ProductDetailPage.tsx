@@ -85,7 +85,10 @@ export function ProductDetailPage() {
 
             {/* 数量選択 */}
             {!isUnavailable && (
-              <QuantitySelector quantity={quantity} max={product.stock} onChange={setQuantity} />
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium text-gray-700">数量:</span>
+                <QuantitySelector quantity={quantity} max={product.stock} onChange={setQuantity} />
+              </div>
             )}
 
             {/* カート追加 */}
