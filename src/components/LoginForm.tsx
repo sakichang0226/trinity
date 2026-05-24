@@ -14,12 +14,12 @@ export function LoginForm({ onSubmit, authError, isLoading }: LoginFormProps) {
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const newErrors = validateLoginForm(email, password)
     setErrors(newErrors)
     if (Object.keys(newErrors).length > 0) return
-    onSubmit(email, password)
+    await onSubmit(email, password)
   }
 
   return (

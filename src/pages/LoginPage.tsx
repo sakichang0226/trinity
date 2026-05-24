@@ -10,7 +10,7 @@ const AUTH_ERROR_CODE = 'API_LOGIN_ERR001'
 export function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { login: setAuthUser, refreshUser } = useAuth()
+  const { refreshUser } = useAuth()
 
   const [authError, setAuthError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -22,9 +22,12 @@ export function LoginPage() {
     setIsLoading(true)
     const result = await login({ email, password })
     if (result.success) {
-      const user = await refreshUser()
-      if (!user) {
-        setAuthUser({ userId: 0, userName: result.data.user_name, email })
+      try {
+        await refreshUser()
+      } catch {
+        setIsServerError(true)
+        setIsLoading(false)
+        return
       }
       const from = (location.state as { from?: { pathname?: string } })?.from?.pathname || '/'
       navigate(from, { replace: true })

@@ -209,7 +209,7 @@ describe('ProductDetailPage', () => {
       renderPage()
 
       await waitFor(() => {
-        const btn = screen.getByText('在庫切れ')
+        const btn = screen.getByText('在庫切れ').closest('button')!
         expect(btn).toBeDisabled()
       })
     })
@@ -219,7 +219,7 @@ describe('ProductDetailPage', () => {
       renderPage()
 
       await waitFor(() => {
-        const btn = screen.getByText('在庫切れ')
+        const btn = screen.getByText('在庫切れ').closest('button')!
         expect(btn).toBeDisabled()
       })
     })
@@ -229,7 +229,7 @@ describe('ProductDetailPage', () => {
       renderPage()
 
       await waitFor(() => {
-        const btn = screen.getByText('販売終了')
+        const btn = screen.getByText('販売終了').closest('button')!
         expect(btn).toBeDisabled()
       })
     })

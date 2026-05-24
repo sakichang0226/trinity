@@ -1,14 +1,19 @@
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { LogoutButton } from '@/components/common/LogoutButton'
 import { AuthProvider } from '@/contexts/AuthContext'
 
 vi.mock('@/services/userService', () => ({
-  fetchMe: vi.fn().mockResolvedValue(null),
+  fetchMe: vi.fn().mockResolvedValue({ success: true, data: null }),
 }))
 
 describe('LogoutButton', () => {
   it('ログアウトボタンが表示される', () => {
-    render(<AuthProvider><LogoutButton /></AuthProvider>)
+    render(
+      <MemoryRouter>
+        <AuthProvider><LogoutButton /></AuthProvider>
+      </MemoryRouter>
+    )
     expect(screen.getByText('ログアウト')).toBeInTheDocument()
   })
 })
