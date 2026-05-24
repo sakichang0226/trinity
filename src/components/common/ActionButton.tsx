@@ -13,6 +13,10 @@ interface ActionButtonProps {
 }
 
 export function ActionButton({ label, to, onClick, className }: ActionButtonProps) {
+  if (to && onClick) {
+    throw new Error('ActionButton: Cannot use both "to" and "onClick" props simultaneously')
+  }
+
   const baseClass = 'w-full bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700 transition text-center text-lg'
   const cls = className ? `${baseClass} ${className}` : baseClass
 

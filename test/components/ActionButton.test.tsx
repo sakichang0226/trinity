@@ -52,4 +52,16 @@ describe('ActionButton', () => {
       expect(screen.getByRole('link')).toHaveClass('mt-4')
     })
   })
+
+  describe('toとonClickの排他', () => {
+    it('toとonClickを同時に指定するとエラーがスローされる', () => {
+      expect(() => {
+        render(
+          <MemoryRouter>
+            <ActionButton label="テスト" to="/" onClick={() => {}} />
+          </MemoryRouter>
+        )
+      }).toThrow('ActionButton: Cannot use both "to" and "onClick" props simultaneously')
+    })
+  })
 })
