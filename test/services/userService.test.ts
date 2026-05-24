@@ -1,9 +1,10 @@
 const mockGetRaw = vi.fn()
+const mockPost = vi.fn()
 vi.mock('@/services/apiClient', () => ({
-  apiClient: { get: vi.fn(), getRaw: mockGetRaw },
+  apiClient: { get: vi.fn(), getRaw: mockGetRaw, post: mockPost },
 }))
 
-const { fetchMe } = await import('@/services/userService')
+const { fetchMe, login } = await import('@/services/userService')
 
 describe('fetchMe', () => {
   beforeEach(() => { mockGetRaw.mockReset() })
@@ -33,6 +34,31 @@ describe('fetchMe', () => {
     const error = { success: false, errorCode: 'API_ERR999', message: 'Server Error' }
     mockGetRaw.mockResolvedValue(error)
     const result = await fetchMe()
+    expect(result).toEqual(error)
+  })
+})
+
+describe('login', () => {
+  beforeEach(() => { mockPost.mockReset() })
+
+  it('成功時にuser_nameを含むレスポンスを返す', async () => {
+    mockPost.mockResolvedValue({ success: true, data: { user_name: 'Taro' } })
+    const result = await login({ email: 'taro@example.com', password: 'pass' })
+    expect(result).toEqual({ success: true, data: { user_name: 'Taro' } })
+    expect(mockPost).toHaveBeenCalledWith('/api/v1/login', { email: 'taro@example.com', password: 'pass' })
+  })
+
+  it('認証失敗時にエラーを返す', async () => {
+    const error = { success: false, errorCode: 'API_LOGIN_ERR001', message: 'invalid password or email' }
+    mockPost.mockResolvedValue(error)
+    const result = await login({ email: 'taro@example.com', password: 'wrong' })
+    expect(result).toEqual(error)
+  })
+
+  it('サーバーエラー時にエラーを返す', async () => {
+    const error = { success: false, errorCode: 'API_ERR999', message: 'server error.' }
+    mockPost.mockResolvedValue(error)
+    const result = await login({ email: 'taro@example.com', password: 'pass' })
     expect(result).toEqual(error)
   })
 })
