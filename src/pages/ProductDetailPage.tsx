@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchProduct } from '@/services/productService'
 import { useAddToCart } from '@/hooks/useAddToCart'
+import { ErrorCode } from '@/types/api'
 import { Image } from '@/components/common/Image'
 import { ProductPrice } from '@/components/common/ProductPrice'
 import { RatingStars } from '@/components/common/RatingStars'
@@ -33,7 +34,7 @@ export function ProductDetailPage() {
     fetchProduct(id!).then(result => {
       if (result.success) {
         setState({ status: 'success', product: result.data })
-      } else if (result.errorCode === 'API_ERR004') {
+      } else if (result.errorCode === ErrorCode.PRODUCT_NOT_FOUND) {
         setState({ status: 'error', code: '404' })
       } else {
         setState({ status: 'error', code: '500' })

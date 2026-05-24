@@ -2,15 +2,14 @@ import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { login } from '@/services/userService'
+import { ErrorCode } from '@/types/api'
 import { LoginForm } from '@/components/LoginForm'
 import { ServerErrorPage } from '@/pages/ServerErrorPage'
-
-const AUTH_ERROR_CODE = 'API_LOGIN_ERR001'
 
 export function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { refreshUser } = useAuth()
+  const { login: setAuthUser, refreshUser } = useAuth()
 
   const [authError, setAuthError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -22,17 +21,14 @@ export function LoginPage() {
     setIsLoading(true)
     const result = await login({ email, password })
     if (result.success) {
-      try {
-        await refreshUser()
-      } catch {
-        setIsServerError(true)
-        setIsLoading(false)
-        return
+      const user = await refreshUser()
+      if (!user) {
+        setAuthUser({ userId: 0, userName: result.data.user_name, email })
       }
       const from = (location.state as { from?: { pathname?: string } })?.from?.pathname || '/'
       navigate(from, { replace: true })
       return
-    } else if (result.errorCode === AUTH_ERROR_CODE) {
+    } else if (result.errorCode === ErrorCode.LOGIN_AUTH) {
       setAuthError('メールアドレスまたはパスワードが正しくありません')
     } else {
       setIsServerError(true)

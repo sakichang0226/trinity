@@ -1,6 +1,7 @@
 const sizes = {
   sm: 'text-sm',
   base: 'text-base',
+  lg: 'text-lg',
   '2xl': 'text-2xl',
   '3xl': 'text-3xl',
 } as const
