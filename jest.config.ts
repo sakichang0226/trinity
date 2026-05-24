@@ -15,7 +15,5 @@ export default {
     '\\.(css|less|scss)$': 'identity-obj-proxy',
   },
   setupFiles: ['./jest.setup.ts'],
-  globals: {
-    'import.meta': { env: { VITE_API_BASE_URL: 'http://localhost:8080' } },
-  },
+
 }

@@ -5,11 +5,11 @@ import { LogoutButton } from '@/components/common/LogoutButton'
 import { AuthProvider } from '@/contexts/AuthContext'
 
 jest.mock('@/services/apiClient', () => ({
-  apiClient: { get: jest.fn(), post: jest.fn() },
+  apiClient: { get: jest.fn<any>(), post: jest.fn<any>() },
 }))
 
 jest.mock('@/services/userService', () => ({
-  fetchMe: jest.fn().mockRejectedValue(new Error('mock')),
+  fetchMe: jest.fn<any>().mockResolvedValue({ success: false, errorCode: null, message: null }),
 }))
 
 describe('LogoutButton', () => {
