@@ -1,8 +1,6 @@
-import { jest, describe, it, expect, beforeEach } from '@jest/globals'
-
-const mockGet = jest.fn<any>()
-jest.unstable_mockModule('@/services/apiClient', () => ({
-  apiClient: { get: mockGet },
+const mockGet = vi.fn()
+vi.mock('@/services/apiClient', () => ({
+  apiClient: { get: mockGet, getRaw: vi.fn() },
 }))
 
 const { fetchProducts } = await import('@/services/productService')
@@ -13,10 +11,10 @@ describe('fetchProducts', () => {
   it('成功時に商品リストを返す', async () => {
     mockGet.mockResolvedValue({
       success: true,
-      data: { products: [{ id: 1, name: 'Product A' }] },
+      data: { products: [{ product_id: 1, product_name: 'Product A' }] },
     })
     const result = await fetchProducts([1])
-    expect(result).toEqual({ success: true, data: [{ id: 1, name: 'Product A' }] })
+    expect(result).toEqual({ success: true, data: [{ product_id: 1, product_name: 'Product A' }] })
     expect(mockGet).toHaveBeenCalledWith('/api/v1/products?product_ids=1')
   })
 

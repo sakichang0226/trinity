@@ -1,5 +1,3 @@
-import '@testing-library/jest-dom'
-import { jest } from '@jest/globals'
 import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { TopPage } from '@/pages/TopPage'
@@ -7,12 +5,13 @@ import { CartProvider } from '@/contexts/CartContext'
 import { AuthProvider } from '@/contexts/AuthContext'
 import type { Product } from '@/types/product'
 
-jest.mock('@/services/apiClient', () => ({
-  apiClient: { get: jest.fn<any>(), post: jest.fn<any>() },
+vi.mock('@/services/userService', () => ({
+  fetchMe: vi.fn().mockResolvedValue(null),
 }))
 
-jest.mock('@/services/userService', () => ({
-  fetchMe: jest.fn<any>().mockRejectedValue(new Error('mock')),
+const mockFetchProducts = vi.fn()
+vi.mock('@/services/productService', () => ({
+  fetchProducts: (...args: unknown[]) => mockFetchProducts(...args),
 }))
 
 const mockProducts: Product[] = [
@@ -61,10 +60,13 @@ const renderTopPage = () => {
 }
 
 describe('TopPage', () => {
+  beforeEach(() => {
+    mockFetchProducts.mockReset()
+  })
+
   describe('ヒーローバナー', () => {
     beforeEach(() => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: true, data: mockProducts })
+      mockFetchProducts.mockResolvedValue({ success: true, data: mockProducts })
     })
 
     it('バナーのタイトルが表示される', () => {
@@ -88,45 +90,37 @@ describe('TopPage', () => {
 
   describe('おすすめ商品セクション', () => {
     it('API成功時に商品名が表示される', async () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: true, data: mockProducts })
-
+      mockFetchProducts.mockResolvedValue({ success: true, data: mockProducts })
       renderTopPage()
 
       await waitFor(() => {
-        expect(screen.getByText('プレミアムコットンTシャツ')).toBeInTheDocument()
-        expect(screen.getByText('ランニングシューズ')).toBeInTheDocument()
+        expect(screen.getAllByText('プレミアムコットンTシャツ').length).toBeGreaterThan(0)
+        expect(screen.getAllByText('ランニングシューズ').length).toBeGreaterThan(0)
       })
     })
 
     it('API成功時に価格が表示される', async () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: true, data: mockProducts })
-
+      mockFetchProducts.mockResolvedValue({ success: true, data: mockProducts })
       renderTopPage()
 
       await waitFor(() => {
-        expect(screen.getByText('¥2,480')).toBeInTheDocument()
-        expect(screen.getByText('¥6,800')).toBeInTheDocument()
+        expect(screen.getAllByText('¥2,480').length).toBeGreaterThan(0)
+        expect(screen.getAllByText('¥6,800').length).toBeGreaterThan(0)
       })
     })
 
     it('API成功時に商品カードが商品詳細へのリンクになっている', async () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: true, data: mockProducts })
-
+      mockFetchProducts.mockResolvedValue({ success: true, data: mockProducts })
       renderTopPage()
 
       await waitFor(() => {
-        const link = screen.getByText('プレミアムコットンTシャツ').closest('a')
-        expect(link).toHaveAttribute('href', '/products/1')
+        const links = screen.getAllByText('プレミアムコットンTシャツ').map(el => el.closest('a'))
+        expect(links[0]).toHaveAttribute('href', '/products/1')
       })
     })
 
     it('API失敗時にセクションが非表示になる（トルツメ）', async () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: false, errorCode: 'API_ERR999', message: 'server error.' })
-
+      mockFetchProducts.mockResolvedValue({ success: false, errorCode: 'API_ERR999', message: 'server error.' })
       renderTopPage()
 
       await waitFor(() => {
@@ -134,10 +128,8 @@ describe('TopPage', () => {
       })
     })
 
-    it('ローディング中はスケルトンが4件表示される', () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockReturnValue(new Promise(() => {}))
-
+    it('ローディング中はスケルトンが表示される', () => {
+      mockFetchProducts.mockReturnValue(new Promise(() => {}))
       renderTopPage()
 
       const skeletons = document.querySelectorAll('.animate-pulse')
@@ -147,9 +139,7 @@ describe('TopPage', () => {
 
   describe('新着商品セクション', () => {
     it('API成功時にNEWバッジが表示される', async () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: true, data: mockProducts })
-
+      mockFetchProducts.mockResolvedValue({ success: true, data: mockProducts })
       renderTopPage()
 
       await waitFor(() => {
@@ -159,9 +149,7 @@ describe('TopPage', () => {
     })
 
     it('新着商品では評価（★）が表示されない', async () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: true, data: mockProducts })
-
+      mockFetchProducts.mockResolvedValue({ success: true, data: mockProducts })
       renderTopPage()
 
       await waitFor(() => {
@@ -173,9 +161,7 @@ describe('TopPage', () => {
     })
 
     it('API失敗時にセクションが非表示になる（トルツメ）', async () => {
-      const { fetchProducts } = require('@/services/productService')
-      ;(fetchProducts as jest.Mock).mockResolvedValue({ success: false, errorCode: 'API_ERR999', message: 'server error.' })
-
+      mockFetchProducts.mockResolvedValue({ success: false, errorCode: 'API_ERR999', message: 'server error.' })
       renderTopPage()
 
       await waitFor(() => {

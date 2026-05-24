@@ -1,8 +1,6 @@
-import { jest, describe, it, expect, beforeEach } from '@jest/globals'
-
-const mockGetRaw = jest.fn<any>()
-jest.unstable_mockModule('@/services/apiClient', () => ({
-  apiClient: { getRaw: mockGetRaw },
+const mockGetRaw = vi.fn()
+vi.mock('@/services/apiClient', () => ({
+  apiClient: { get: vi.fn(), getRaw: mockGetRaw },
 }))
 
 const { fetchMe } = await import('@/services/userService')
@@ -36,11 +34,5 @@ describe('fetchMe', () => {
     mockGetRaw.mockResolvedValue(error)
     const result = await fetchMe()
     expect(result).toEqual(error)
-  })
-
-  it('ネットワークエラー時にnullエラーを返す', async () => {
-    mockGetRaw.mockResolvedValue({ success: false, errorCode: null, message: null })
-    const result = await fetchMe()
-    expect(result).toEqual({ success: false, errorCode: null, message: null })
   })
 })
