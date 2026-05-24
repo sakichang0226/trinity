@@ -6,7 +6,7 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import type { Product } from '@/types/product'
 
 vi.mock('@/services/userService', () => ({
-  fetchMe: vi.fn().mockResolvedValue(null),
+  fetchMe: vi.fn().mockResolvedValue({ success: true, data: null }),
 }))
 
 const mockFetchProducts = vi.fn()

@@ -7,7 +7,7 @@ interface AuthContextType {
   isLoading: boolean
   login: (user: UserInfo) => void
   logout: () => void
-  refreshUser: () => Promise<void>
+  refreshUser: () => Promise<UserInfo | null>
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
@@ -18,8 +18,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refreshUser = useCallback(async () => {
     const result = await fetchMe()
-    setUser(result.success ? result.data : null)
+    const userData = result.success ? result.data : null
+    setUser(userData)
     setIsLoading(false)
+    return userData
   }, [])
 
   useEffect(() => {
@@ -31,6 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const logout = useCallback(() => {
+    document.cookie = 'token=; Path=/; Max-Age=0'
     setUser(null)
   }, [])
 
