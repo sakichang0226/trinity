@@ -38,6 +38,13 @@ describe('PriceLabel', () => {
     expect(screen.getByText('¥1,000')).toHaveClass('text-gray-500')
   })
 
+  it('color="secondary"でtext-gray-800がboldなしで適用される', () => {
+    render(<PriceLabel price={1000} color="secondary" />)
+    const el = screen.getByText('¥1,000')
+    expect(el).toHaveClass('text-gray-800')
+    expect(el).not.toHaveClass('font-bold')
+  })
+
   it('0円が表示される', () => {
     render(<PriceLabel price={0} />)
     expect(screen.getByText('¥0')).toBeInTheDocument()
