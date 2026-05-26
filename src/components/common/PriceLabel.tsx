@@ -9,6 +9,7 @@ const sizes = {
 const colors = {
   primary: 'font-bold text-green-700',
   default: 'font-bold text-gray-800',
+  secondary: 'text-gray-800',
   muted: 'text-gray-500',
 } as const
 
