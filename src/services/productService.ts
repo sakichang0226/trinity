@@ -1,5 +1,5 @@
 import { apiClient } from './apiClient'
-import type { Product } from '@/types/product'
+import type { Product } from '@/features/product/types/product'
 import type { ApiResult } from '@/types/api'
 
 interface ProductsResponse {

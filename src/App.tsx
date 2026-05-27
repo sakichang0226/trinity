@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { CartProvider } from '@/contexts/CartContext'
-import { Layout } from '@/components/layout/Layout'
-import { AuthGuard } from '@/components/AuthGuard'
-import { TopPage } from '@/pages/TopPage'
-import { ProductDetailPage } from '@/pages/ProductDetailPage'
-import { CartPage } from '@/pages/CartPage'
-import { CheckoutPage } from '@/pages/CheckoutPage'
-import { OrderHistoryPage } from '@/pages/OrderHistoryPage'
-import { LoginPage } from '@/pages/LoginPage'
+import { Layout } from '@/layout/Layout'
+import { AuthGuard } from '@/features/auth/components/AuthGuard'
+import { TopPage } from '@/features/home/routes/TopPage'
+import { ProductDetailPage } from '@/features/product/routes/ProductDetailPage'
+import { CartPage } from '@/features/cart/routes/CartPage'
+import { CheckoutPage } from '@/features/order/routes/CheckoutPage'
+import { OrderHistoryPage } from '@/features/order/routes/OrderHistoryPage'
+import { LoginPage } from '@/features/auth/routes/LoginPage'
 
 export default function App() {
   return (
