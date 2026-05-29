@@ -13,6 +13,10 @@ const product = {
   stock: 5,
   category_id: 1,
   is_new: false,
+  shop_id: 1,
+  tax_type: 'I' as const,
+  status: 'O' as const,
+  created_at: 1700000000000,
 }
 
 describe('ProductCard', () => {
