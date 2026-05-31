@@ -9,6 +9,7 @@ import { CartPage } from '@/features/cart/routes/CartPage'
 import { CheckoutPage } from '@/features/order/routes/CheckoutPage'
 import { OrderHistoryPage } from '@/features/order/routes/OrderHistoryPage'
 import { LoginPage } from '@/features/auth/routes/LoginPage'
+import { NotFoundPage } from '@/features/error/routes/NotFoundPage'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
               <Route path="/checkout" element={<AuthGuard><CheckoutPage /></AuthGuard>} />
               <Route path="/orders" element={<AuthGuard><OrderHistoryPage /></AuthGuard>} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </CartProvider>
