@@ -34,6 +34,10 @@ export default defineConfig(({ mode }) => {
       globals: true,
       setupFiles: ['./test/setup.ts'],
       include: ['src/**/*.test.{ts,tsx}'],
+      coverage: {
+        reporter: ['text', 'json-summary'],
+        reportOnFailure: true,
+      },
     },
   }
 })
