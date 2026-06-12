@@ -17,4 +17,19 @@ describe('Image', () => {
     fireEvent.error(screen.getByAltText('壊れた画像'))
     expect(screen.getByText('No Image')).toBeInTheDocument()
   })
+
+  it('srcがnullの場合「No Image」が表示される', () => {
+    render(<Image src={null} alt="画像なし" />)
+    expect(screen.getByText('No Image')).toBeInTheDocument()
+  })
+
+  it('srcがundefinedの場合「No Image」が表示される', () => {
+    render(<Image src={undefined} alt="画像なし" />)
+    expect(screen.getByText('No Image')).toBeInTheDocument()
+  })
+
+  it('srcが空文字の場合「No Image」が表示される', () => {
+    render(<Image src="" alt="画像なし" />)
+    expect(screen.getByText('No Image')).toBeInTheDocument()
+  })
 })
