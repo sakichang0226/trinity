@@ -17,14 +17,14 @@ export function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
-  const [orderId, setOrderId] = useState<number | null>(null)
+  const [ordered, setOrdered] = useState(false)
   const [error, setError] = useState<OrderError | null>(null)
 
   useEffect(() => {
-    if (items.length === 0 && orderId === null) {
+    if (items.length === 0 && !ordered) {
       navigate('/cart')
     }
-  }, [items.length, orderId, navigate])
+  }, [items.length, ordered, navigate])
 
   const handleOrder = async () => {
     setLoading(true)
@@ -37,7 +37,7 @@ export function CheckoutPage() {
     setLoading(false)
 
     if (result.success) {
-      setOrderId(result.data.order_id)
+      setOrdered(true)
       clearCart()
     } else {
       const code = result.errorCode
@@ -46,8 +46,8 @@ export function CheckoutPage() {
     }
   }
 
-  if (orderId !== null) {
-    return <OrderCompleteCard orderId={orderId} />
+  if (ordered) {
+    return <OrderCompleteCard />
   }
 
   if (items.length === 0) {

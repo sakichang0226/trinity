@@ -105,7 +105,7 @@ describe('CheckoutPage', () => {
 
     it('注文APIにproduct_id(数値)とquantityが送信される', async () => {
       const user = userEvent.setup()
-      mockCreateOrder.mockResolvedValue({ success: true, data: { order_id: 1001 } })
+      mockCreateOrder.mockResolvedValue({ success: true, data: undefined })
       renderCheckoutPage()
       await user.click(screen.getByRole('button', { name: '注文を確定する' }))
       expect(mockCreateOrder).toHaveBeenCalledWith([
@@ -116,7 +116,7 @@ describe('CheckoutPage', () => {
 
     it('注文成功時に完了画面が表示される', async () => {
       const user = userEvent.setup()
-      mockCreateOrder.mockResolvedValue({ success: true, data: { order_id: 1001 } })
+      mockCreateOrder.mockResolvedValue({ success: true, data: undefined })
       renderCheckoutPage()
       await user.click(screen.getByRole('button', { name: '注文を確定する' }))
       await waitFor(() => {
@@ -124,19 +124,9 @@ describe('CheckoutPage', () => {
       })
     })
 
-    it('注文成功時に注文番号が表示される', async () => {
-      const user = userEvent.setup()
-      mockCreateOrder.mockResolvedValue({ success: true, data: { order_id: 1001 } })
-      renderCheckoutPage()
-      await user.click(screen.getByRole('button', { name: '注文を確定する' }))
-      await waitFor(() => {
-        expect(screen.getByText('注文番号: 1001')).toBeInTheDocument()
-      })
-    })
-
     it('注文成功時にカートがクリアされる', async () => {
       const user = userEvent.setup()
-      mockCreateOrder.mockResolvedValue({ success: true, data: { order_id: 1001 } })
+      mockCreateOrder.mockResolvedValue({ success: true, data: undefined })
       renderCheckoutPage()
       await user.click(screen.getByRole('button', { name: '注文を確定する' }))
       await waitFor(() => {
@@ -148,7 +138,7 @@ describe('CheckoutPage', () => {
   describe('注文完了表示', () => {
     it('「TOPへ戻る」リンクが表示される', async () => {
       const user = userEvent.setup()
-      mockCreateOrder.mockResolvedValue({ success: true, data: { order_id: 1001 } })
+      mockCreateOrder.mockResolvedValue({ success: true, data: undefined })
       renderCheckoutPage()
       await user.click(screen.getByRole('button', { name: '注文を確定する' }))
       await waitFor(() => {
@@ -158,7 +148,7 @@ describe('CheckoutPage', () => {
 
     it('「注文履歴を見る」リンクが表示される', async () => {
       const user = userEvent.setup()
-      mockCreateOrder.mockResolvedValue({ success: true, data: { order_id: 1001 } })
+      mockCreateOrder.mockResolvedValue({ success: true, data: undefined })
       renderCheckoutPage()
       await user.click(screen.getByRole('button', { name: '注文を確定する' }))
       await waitFor(() => {
@@ -259,7 +249,7 @@ describe('CheckoutPage', () => {
       await waitFor(() => {
         expect(screen.getByRole('button', { name: /もう一度試す/ })).toBeInTheDocument()
       })
-      mockCreateOrder.mockResolvedValue({ success: true, data: { order_id: 2002 } })
+      mockCreateOrder.mockResolvedValue({ success: true, data: undefined })
       await user.click(screen.getByRole('button', { name: /もう一度試す/ }))
       await waitFor(() => {
         expect(screen.getByText('注文が完了しました！')).toBeInTheDocument()
