@@ -5,9 +5,6 @@ interface OrderRequest {
   products: { product_id: number; quantity: number }[]
 }
 
-interface OrderResponse {
-  order_id: number
-}
 
 export interface OrderDetail {
   order_id: number
@@ -29,8 +26,8 @@ export interface OrdersResponse {
   orders: OrderDetail[]
 }
 
-export async function createOrder(products: OrderRequest['products']): Promise<ApiResult<OrderResponse>> {
-  return apiClient.post<OrderResponse>('/api/v1/orders', { products })
+export async function createOrder(products: OrderRequest['products']): Promise<ApiResult<void>> {
+  return apiClient.post<void>('/api/v1/orders', { products })
 }
 
 export async function getOrders(lastOrderId?: number): Promise<ApiResult<OrdersResponse>> {
