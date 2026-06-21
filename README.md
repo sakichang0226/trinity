@@ -1,73 +1,84 @@
-# React + TypeScript + Vite
+![Trinity](public/trinity_logo_readable_centered.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  現職の案件のクラス設計・実装の振り返りやPoC検証のためのサンドボックスとしてECサイトを作成<br/>
+  本リポジトリは、モール面のフロント部分に該当します。
+</p>
 
-Currently, two official plugins are available:
+### 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React">
+  <img src="https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white" alt="React Router">
+  <img src="https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white" alt="Vitest">
+  <img src="https://img.shields.io/badge/coverage-89.84%25-brightgreen" alt="Coverage">
+</p>
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 技術スタック
 
-## Expanding the ESLint configuration
+| カテゴリ         | 技術                     |
+| ---------------- | ------------------------ |
+| フレームワーク   | React 19                 |
+| 言語             | TypeScript 6             |
+| ビルドツール     | Vite 8                   |
+| スタイリング     | Tailwind CSS 4           |
+| ルーティング     | React Router 7           |
+| UIコンポーネント | Headless UI / Heroicons  |
+| HTTP             | Axios                    |
+| テスト           | Vitest / Testing Library |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## セットアップ
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## テスト
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run test                                    # テスト実行
+npm run test:coverage                           # カバレッジ付きテスト実行
+npm run test:coverage && npm run badge:coverage  # カバレッジバッジ更新
 ```
+
+## スクリプト
+
+| コマンド | 説明 |
+|----------|------|
+| `npm run dev` | ローカル開発サーバー起動 |
+| `npm run build` | プロダクションビルド |
+| `npm run lint` | ESLint実行 |
+| `npm run test` | テスト実行 |
+| `npm run preview` | ビルド結果プレビュー |
+
+## ディレクトリ構成
+
+```
+src/
+├── contexts/
+├── features/
+│   ├── auth/
+│   ├── cart/
+│   ├── home/
+│   ├── order/
+│   └── product/
+├── layout/
+├── services/
+├── shared/
+└── types/
+```
+
+| ディレクトリ | 説明                                    |
+| ------------ | --------------------------------------- |
+| contexts/    | グローバルステート（Auth, Cart）        |
+| features/    | 機能別モジュール                        |
+| layout/      | Header, Footer, Layout                  |
+| services/    | API通信などビジネスロジックの処理を記載 |
+| shared/      | 共通コンポーネント                      |
+| types/       | 型定義                                  |
