@@ -28,9 +28,9 @@ describe('PriceLabel', () => {
     expect(screen.getByText('¥1,000')).toHaveClass('text-3xl')
   })
 
-  it('color="primary"でtext-brand-700が適用される', () => {
+  it('color="primary"でtext-brand-600が適用される', () => {
     render(<PriceLabel price={1000} color="primary" />)
-    expect(screen.getByText('¥1,000')).toHaveClass('text-brand-700', 'font-bold')
+    expect(screen.getByText('¥1,000')).toHaveClass('text-brand-600', 'font-bold')
   })
 
   it('color="muted"でtext-gray-500が適用される', () => {

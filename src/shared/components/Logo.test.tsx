@@ -3,9 +3,9 @@ import { MemoryRouter } from 'react-router-dom'
 import { Logo } from '@/shared/components/Logo'
 
 describe('Logo', () => {
-  it('「EC Store」テキストが表示される', () => {
+  it('ロゴ画像が表示される', () => {
     render(<Logo />, { wrapper: MemoryRouter })
-    expect(screen.getByText('EC Store')).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: 'SUNABA' })).toBeInTheDocument()
   })
 
   it('リンクが/を指す', () => {

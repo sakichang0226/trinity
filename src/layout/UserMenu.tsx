@@ -15,7 +15,7 @@ export function UserMenu() {
 
   return (
     <Menu as="div" className="relative">
-      <MenuButton className="flex items-center gap-1 text-sm text-gray-700 hover:text-brand-700 font-medium">
+      <MenuButton className="flex items-center gap-1 text-sm text-gray-700 hover:text-brand-600 font-medium">
         <UserLabel />
         <ChevronDownIcon className="w-4 h-4" />
       </MenuButton>
