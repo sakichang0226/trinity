@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #f0fdf4;
-  --color-brand-100: #dcfce7;
-  --color-brand-500: #22c55e;
-  --color-brand-600: #16a34a;
-  --color-brand-700: #15803d;
-  --color-brand-800: #166534;
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+
+  /* グラデーション始点(シアン) */
+  --color-gradient-from: #06b6d4;
+  /* グラデーション終点(パープル) */
+  --color-gradient-to: #8b5cf6;
 
   --color-danger-50: #fef2f2;
   --color-danger-100: #fee2e2;
@@ -17,6 +24,8 @@
   --color-danger-700: #b91c1c;
   --color-danger-800: #991b1b;
 }
+
+
 
 body {
   font-family: 'Segoe UI', 'Hiragino Sans', sans-serif;

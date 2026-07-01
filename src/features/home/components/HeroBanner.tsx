@@ -12,7 +12,7 @@ export function HeroBanner() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 mt-6">
-      <div className="relative bg-gradient-to-r from-brand-600 to-emerald-500 rounded-2xl overflow-hidden h-64 flex items-center">
+      <div className="relative bg-gradient-to-r from-gradient-from to-gradient-to rounded-2xl overflow-hidden h-64 flex items-center">
         <div className="px-10 text-white">
           <p className="text-sm font-medium opacity-80">{banner.label}</p>
           <h2 className="text-3xl font-bold mt-2">{banner.title}</h2>

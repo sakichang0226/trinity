@@ -362,10 +362,10 @@ describe('ProductDetailPage', () => {
       mockFetchProduct.mockResolvedValue({ success: false, errorCode: 'API_ERR004', message: 'data not found.' })
     })
 
-    it('「お探しの商品は見つかりませんでした。」が表示される', async () => {
+    it('「お探しのページは見つかりませんでした。」が表示される', async () => {
       renderPage()
       await waitFor(() => {
-        expect(screen.getByText('お探しの商品は見つかりませんでした。')).toBeInTheDocument()
+        expect(screen.getByText('お探しのページは見つかりませんでした。')).toBeInTheDocument()
       })
     })
 

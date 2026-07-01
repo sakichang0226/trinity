@@ -1,6 +1,6 @@
 const colorMap = {
-  green: 'bg-brand-100 text-brand-700',
-  blue: 'bg-blue-100 text-blue-700',
+  green: 'bg-brand-100 text-brand-600',
+  blue: 'bg-blue-100 text-blue-600',
   red: 'bg-danger-100 text-danger-700',
   'red-solid': 'bg-danger-500 text-white',
   yellow: 'bg-yellow-100 text-yellow-700',

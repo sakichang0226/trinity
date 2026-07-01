@@ -96,7 +96,7 @@ describe('OrderHistoryPage', () => {
       renderPage()
       await waitFor(() => {
         const badge = screen.getByText('配送済み')
-        expect(badge).toHaveClass('bg-brand-100', 'text-brand-700')
+        expect(badge).toHaveClass('bg-brand-100', 'text-brand-600')
       })
     })
 
@@ -104,7 +104,7 @@ describe('OrderHistoryPage', () => {
       renderPage()
       await waitFor(() => {
         const badge = screen.getByText('処理中')
-        expect(badge).toHaveClass('bg-blue-100', 'text-blue-700')
+        expect(badge).toHaveClass('bg-blue-100', 'text-blue-600')
       })
     })
 

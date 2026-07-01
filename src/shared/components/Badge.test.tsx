@@ -9,12 +9,12 @@ describe('Badge', () => {
 
   it('greenカラーでbrand系クラスが適用される', () => {
     render(<Badge label="配送済み" color="green" />)
-    expect(screen.getByText('配送済み')).toHaveClass('bg-brand-100', 'text-brand-700')
+    expect(screen.getByText('配送済み')).toHaveClass('bg-brand-100', 'text-brand-600')
   })
 
   it('blueカラーでblue系クラスが適用される', () => {
     render(<Badge label="処理中" color="blue" />)
-    expect(screen.getByText('処理中')).toHaveClass('bg-blue-100', 'text-blue-700')
+    expect(screen.getByText('処理中')).toHaveClass('bg-blue-100', 'text-blue-600')
   })
 
   it('red-solidカラーでdanger系クラスが適用される', () => {

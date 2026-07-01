@@ -9,7 +9,7 @@ export interface ToastData {
 export function Toast({ toast, onClose }: { toast: ToastData; onClose: () => void }) {
   return (
     <div className="fixed top-20 right-4 z-50 toast-anim">
-      <div className={`bg-white border shadow-lg rounded-lg px-5 py-3 flex items-center gap-3 ${toast.type === 'success' ? 'border-brand-200' : 'border-danger-200'}`}>
+      <div className={`bg-white border shadow-lg rounded-lg px-5 py-3 flex items-center gap-3 ${toast.type === 'success' ? 'border-blue-200' : 'border-danger-200'}`}>
         {toast.type === 'success' ? (
           <CheckCircleIcon className="w-6 h-6 text-brand-600" />
         ) : (
