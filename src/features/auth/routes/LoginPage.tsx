@@ -41,13 +41,16 @@ export function LoginPage() {
   }
 
   return (
-    <main className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h1 className="text-2xl font-bold text-gray-900 text-center mb-8">ログイン</h1>
-          <LoginForm onSubmit={handleSubmit} authError={authError} isLoading={isLoading} />
+    <>
+      <title>ログイン | SUNABA</title>
+      <div className="min-h-[70vh] flex items-center justify-center px-4">
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <h1 className="text-2xl font-bold text-gray-900 text-center mb-8">ログイン</h1>
+            <LoginForm onSubmit={handleSubmit} authError={authError} isLoading={isLoading} />
+          </div>
         </div>
       </div>
-    </main>
+    </>
   )
 }

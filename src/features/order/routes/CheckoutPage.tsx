@@ -47,7 +47,12 @@ export function CheckoutPage() {
   }
 
   if (ordered) {
-    return <OrderCompleteCard />
+    return (
+      <>
+        <title>購入完了 | SUNABA</title>
+        <OrderCompleteCard />
+      </>
+    )
   }
 
   if (items.length === 0) {
@@ -55,26 +60,29 @@ export function CheckoutPage() {
   }
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">注文内容の確認</h1>
+    <>
+      <title>購入確認 | SUNABA</title>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">注文内容の確認</h1>
 
-      <OrderItemsCard items={items} totalPrice={totalPrice} />
+        <OrderItemsCard items={items} totalPrice={totalPrice} />
 
-      <SubmitButton
-        onClick={handleOrder}
-        label="注文を確定する"
-        loadingLabel="処理中..."
-        isLoading={loading}
-        className="mt-6"
-      />
-
-      {error && (
-        <OrderErrorCard
-          message={error.message}
-          isProductError={!!(error.code && ORDER_ERROR_CODES.includes(error.code as typeof ORDER_ERROR_CODES[number]))}
-          onRetry={handleOrder}
+        <SubmitButton
+          onClick={handleOrder}
+          label="注文を確定する"
+          loadingLabel="処理中..."
+          isLoading={loading}
+          className="mt-6"
         />
-      )}
-    </main>
+
+        {error && (
+          <OrderErrorCard
+            message={error.message}
+            isProductError={!!(error.code && ORDER_ERROR_CODES.includes(error.code as typeof ORDER_ERROR_CODES[number]))}
+            onRetry={handleOrder}
+          />
+        )}
+      </div>
+    </>
   )
 }
