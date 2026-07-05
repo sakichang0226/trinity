@@ -58,9 +58,10 @@ export function ProductDetailPage() {
 
   return (
     <>
+      <title>{`${product.product_name} | SUNABA`}</title>
       {toast && <Toast toast={toast} onClose={closeToast} />}
 
-      <main className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-6">
         <Breadcrumb productName={product.product_name} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -98,28 +99,31 @@ export function ProductDetailPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   )
 }
 
 function Skeleton() {
   return (
-    <main className="max-w-7xl mx-auto px-4 py-6">
-      <div className="animate-pulse h-4 w-40 bg-gray-200 rounded mb-6" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="animate-pulse bg-gray-200 rounded-2xl aspect-square" />
-        <div className="space-y-4">
-          <div className="animate-pulse h-8 w-3/4 bg-gray-200 rounded" />
-          <div className="animate-pulse h-10 w-1/3 bg-gray-200 rounded" />
-          <div className="animate-pulse h-4 w-1/2 bg-gray-200 rounded" />
-          <div className="animate-pulse h-px w-full bg-gray-200" />
-          <div className="animate-pulse h-10 w-40 bg-gray-200 rounded" />
-          <div className="animate-pulse h-12 w-full bg-gray-200 rounded-lg" />
-          <div className="animate-pulse h-px w-full bg-gray-200" />
-          <div className="animate-pulse h-20 bg-gray-200 rounded" />
+    <>
+      <title>商品詳細 | SUNABA</title>
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="animate-pulse h-4 w-40 bg-gray-200 rounded mb-6" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="animate-pulse bg-gray-200 rounded-2xl aspect-square" />
+          <div className="space-y-4">
+            <div className="animate-pulse h-8 w-3/4 bg-gray-200 rounded" />
+            <div className="animate-pulse h-10 w-1/3 bg-gray-200 rounded" />
+            <div className="animate-pulse h-4 w-1/2 bg-gray-200 rounded" />
+            <div className="animate-pulse h-px w-full bg-gray-200" />
+            <div className="animate-pulse h-10 w-40 bg-gray-200 rounded" />
+            <div className="animate-pulse h-12 w-full bg-gray-200 rounded-lg" />
+            <div className="animate-pulse h-px w-full bg-gray-200" />
+            <div className="animate-pulse h-20 bg-gray-200 rounded" />
+          </div>
         </div>
       </div>
-    </main>
+    </>
   )
 }

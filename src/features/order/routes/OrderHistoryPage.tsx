@@ -84,6 +84,7 @@ export function OrderHistoryPage() {
 
   return (
     <>
+      <title>購入履歴一覧 | SUNABA</title>
       {toast && <Toast toast={toast} onClose={() => setToast(null)} />}
       <OrderHistoryContainer>
         <div className="space-y-4">

@@ -3,7 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
 export function OrderCompleteCard() {
   return (
-    <main className="max-w-2xl mx-auto px-4 py-8">
+    <div className="max-w-2xl mx-auto px-4 py-8">
       <div className="bg-white rounded-xl shadow-sm p-10 text-center">
         <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <CheckCircleIcon className="w-10 h-10 text-brand-600" />
@@ -15,6 +15,6 @@ export function OrderCompleteCard() {
           <Link to="/orders" className="bg-brand-600 text-white px-6 py-2 rounded-lg hover:bg-brand-700 transition">注文履歴を見る</Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

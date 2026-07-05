@@ -24,6 +24,7 @@ export function TopPage() {
 
   return (
     <>
+      <title>SUNABA - 通販サイト</title>
       <HeroBanner />
       <ProductSection title="おすすめ商品" products={recommended} isLoading={loadingRecommended} />
       <div className="mb-16">
