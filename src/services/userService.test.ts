@@ -4,7 +4,7 @@ vi.mock('@/services/apiClient', () => ({
   apiClient: { get: vi.fn(), getRaw: mockGetRaw, post: mockPost },
 }))
 
-const { fetchMe, login } = await import('@/services/userService')
+const { fetchMe, login, logout } = await import('@/services/userService')
 
 describe('fetchMe', () => {
   beforeEach(() => { mockGetRaw.mockReset() })
@@ -34,6 +34,24 @@ describe('fetchMe', () => {
     const error = { success: false, errorCode: 'API_ERR999', message: 'Server Error' }
     mockGetRaw.mockResolvedValue(error)
     const result = await fetchMe()
+    expect(result).toEqual(error)
+  })
+})
+
+describe('logout', () => {
+  beforeEach(() => { mockPost.mockReset() })
+
+  it('成功時にvoidを返す', async () => {
+    mockPost.mockResolvedValue({ success: true, data: undefined })
+    const result = await logout()
+    expect(result).toEqual({ success: true, data: undefined })
+    expect(mockPost).toHaveBeenCalledWith('/api/v1/logout')
+  })
+
+  it('エラー時にエラー結果を返す', async () => {
+    const error = { success: false, errorCode: 'API_ERR999', message: 'server error.' }
+    mockPost.mockResolvedValue(error)
+    const result = await logout()
     expect(result).toEqual(error)
   })
 })

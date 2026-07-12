@@ -26,6 +26,10 @@ export interface UserInfo {
   email: string
 }
 
+export async function logout(): Promise<ApiResult<void>> {
+  return apiClient.post<void>('/api/v1/logout')
+}
+
 export async function fetchMe(): Promise<ApiResult<UserInfo | null>> {
   const result = await apiClient.getRaw<MeResponse>('/api/v1/me')
   if (!result.success) return result

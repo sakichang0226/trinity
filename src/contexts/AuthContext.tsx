@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
-import { fetchMe, type UserInfo } from '@/services/userService'
+import { fetchMe, logout as logoutApi, type UserInfo } from '@/services/userService'
 
 interface AuthContextType {
   user: UserInfo | null
   isAuthenticated: boolean
   isLoading: boolean
   login: (user: UserInfo) => void
-  logout: () => void
+  logout: () => Promise<void>
   refreshUser: () => Promise<UserInfo | null>
 }
 
@@ -32,8 +32,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(newUser)
   }, [])
 
-  const logout = useCallback(() => {
-    document.cookie = 'token=; Path=/; Max-Age=0'
+  const logout = useCallback(async () => {
+    await logoutApi()
     setUser(null)
   }, [])
 
