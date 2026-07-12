@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
-import { fetchMe, type UserInfo } from '@/services/userService'
+import { fetchMe, logout as logoutApi, type UserInfo } from '@/services/userService'
 
 interface AuthContextType {
   user: UserInfo | null
@@ -33,8 +33,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const logout = useCallback(() => {
-    document.cookie = 'token=; Path=/; Max-Age=0'
     setUser(null)
+    logoutApi()
   }, [])
 
   return (
