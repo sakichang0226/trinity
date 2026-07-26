@@ -31,10 +31,38 @@ describe('LoginPage', () => {
     mockFetchMe.mockResolvedValue({ success: true, data: null })
   })
 
-  describe('画面表示', () => {
-    it('ログインタイトルが表示される', () => {
+  describe('認証済みリダイレクト', () => {
+    it('ログイン済みの場合はTOP画面にリダイレクトされる', async () => {
+      mockFetchMe.mockResolvedValue({
+        success: true,
+        data: { userId: 1, userName: 'Taro', email: 'taro@example.com' },
+      })
       renderLoginPage()
-      expect(screen.getByRole('heading', { name: 'ログイン' })).toBeInTheDocument()
+
+      await waitFor(() => {
+        expect(screen.getByText('TOPページ')).toBeInTheDocument()
+      })
+    })
+
+    it('ログイン済みの場合はログインフォームが表示されない', async () => {
+      mockFetchMe.mockResolvedValue({
+        success: true,
+        data: { userId: 1, userName: 'Taro', email: 'taro@example.com' },
+      })
+      renderLoginPage()
+
+      await waitFor(() => {
+        expect(screen.queryByRole('heading', { name: 'ログイン' })).not.toBeInTheDocument()
+      })
+    })
+  })
+
+  describe('画面表示', () => {
+    it('ログインタイトルが表示される', async () => {
+      renderLoginPage()
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: 'ログイン' })).toBeInTheDocument()
+      })
     })
   })
 
@@ -42,12 +70,13 @@ describe('LoginPage', () => {
     it('ログイン成功後にTOP画面へ遷移する', async () => {
       const user = userEvent.setup()
       mockLogin.mockResolvedValue({ success: true, data: { user_name: 'Taro' } })
-      mockFetchMe.mockResolvedValue({
+      mockFetchMe.mockResolvedValueOnce({ success: true, data: null }).mockResolvedValue({
         success: true,
         data: { userId: 1, userName: 'Taro', email: 'taro@example.com' },
       })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'password123')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -60,12 +89,13 @@ describe('LoginPage', () => {
     it('ログインAPIにemail/passwordが送信される', async () => {
       const user = userEvent.setup()
       mockLogin.mockResolvedValue({ success: true, data: { user_name: 'Taro' } })
-      mockFetchMe.mockResolvedValue({
+      mockFetchMe.mockResolvedValueOnce({ success: true, data: null }).mockResolvedValue({
         success: true,
         data: { userId: 1, userName: 'Taro', email: 'taro@example.com' },
       })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'password123')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -81,6 +111,7 @@ describe('LoginPage', () => {
       mockFetchMe.mockResolvedValue({ success: true, data: null })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'password123')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -97,6 +128,7 @@ describe('LoginPage', () => {
       mockLogin.mockResolvedValue({ success: false, errorCode: 'API_LOGIN_ERR001', message: 'invalid password or email' })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'wrong')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -111,6 +143,7 @@ describe('LoginPage', () => {
       mockLogin.mockResolvedValue({ success: false, errorCode: 'API_LOGIN_ERR001', message: 'invalid password or email' })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'wrong')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -128,6 +161,7 @@ describe('LoginPage', () => {
       mockLogin.mockResolvedValue({ success: false, errorCode: 'API_ERR999', message: 'server error.' })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'password123')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -142,6 +176,7 @@ describe('LoginPage', () => {
       mockLogin.mockResolvedValue({ success: false, errorCode: null, message: null })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'password123')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -156,6 +191,7 @@ describe('LoginPage', () => {
       mockLogin.mockResolvedValue({ success: false, errorCode: 'API_ERR999', message: 'server error.' })
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'password123')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))
@@ -176,6 +212,7 @@ describe('LoginPage', () => {
       mockLogin.mockReturnValue(new Promise(() => {}))
       renderLoginPage()
 
+      await waitFor(() => expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument())
       await user.type(screen.getByLabelText('メールアドレス'), 'taro@example.com')
       await user.type(screen.getByLabelText('パスワード'), 'password123')
       await user.click(screen.getByRole('button', { name: 'ログイン' }))

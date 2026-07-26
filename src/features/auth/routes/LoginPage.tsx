@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { login } from '@/services/userService'
 import { ErrorCode } from '@/types/api'
@@ -9,16 +9,16 @@ import { ServerErrorPage } from '@/features/error/routes/ServerErrorPage'
 export function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { login: setAuthUser, refreshUser } = useAuth()
+  const { login: setAuthUser, refreshUser, isAuthenticated, isLoading } = useAuth()
 
   const [authError, setAuthError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isServerError, setIsServerError] = useState(false)
 
   const handleSubmit = async (email: string, password: string) => {
     setAuthError('')
     setIsServerError(false)
-    setIsLoading(true)
+    setIsSubmitting(true)
     const result = await login({ email, password })
     if (result.success) {
       const user = await refreshUser()
@@ -33,12 +33,15 @@ export function LoginPage() {
     } else {
       setIsServerError(true)
     }
-    setIsLoading(false)
+    setIsSubmitting(false)
   }
 
   if (isServerError) {
     return <ServerErrorPage onRetry={() => setIsServerError(false)} />
   }
+
+  if (isLoading) return null
+  if (isAuthenticated) return <Navigate to="/" replace />
 
   return (
     <>
@@ -47,7 +50,7 @@ export function LoginPage() {
         <div className="w-full max-w-md">
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <h1 className="text-2xl font-bold text-gray-900 text-center mb-8">ログイン</h1>
-            <LoginForm onSubmit={handleSubmit} authError={authError} isLoading={isLoading} />
+            <LoginForm onSubmit={handleSubmit} authError={authError} isLoading={isSubmitting} />
           </div>
         </div>
       </div>
